@@ -1,7 +1,7 @@
 
 ## redditstream-cli 
 
-Redditstream-cli is a command line tool/interface for live streaming reddit comments from any subreddit. It updates automatically, pulling the latest comments and printing them into a nice columnar format for you to view. 
+redditstream-cli is a command line tool/interface for live streaming reddit comments from any subreddit. It updates automatically, pulling the latest comments and printing them into a nice columnar format for you to view. 
 
 It is written in Python, utilizing the PRAW Reddit API.
 
