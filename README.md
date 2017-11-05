@@ -10,9 +10,9 @@ You will want to sign up [here](https://www.reddit.com/prefs/apps/) and then hav
 {
  "client_id":"l-suwe93841bPg",
  "client_secret":"EndSlPnoEJtEqOqo",
-  "password":"xxxxx",
-   "user_agent":"testscript",
-    "username":"RedditUsername"
+ "password":"xxxxx",
+ "user_agent":"testscript",
+ "username":"RedditUsername"
 }
 ```
 Here is an example of three different redditstream-cli sessions running, serving the latest comments from r/politics, r/soccer, and r/technology. 
