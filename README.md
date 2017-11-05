@@ -5,7 +5,7 @@ Redditstream-cli is a command line tool/interface for live streaming reddit comm
 
 It is written in Python, utilizing the PRAW Reddit API.
 
-1. You will want to sign up [here](https://www.reddit.com/prefs/apps/) 
+1. First, sign up [here](https://www.reddit.com/prefs/apps/) for the PRAW API access to reddit. 
 
 2. Create a file called credentials.json in the redditstream-cli/code directory. The credentials.json file should be formatted like this:
 
@@ -17,8 +17,9 @@ It is written in Python, utilizing the PRAW Reddit API.
  "user_agent":"testscript",
  "username":"RedditUsername"
 }
+
 ```
-3. Change to the directory of the .py script and run 
+3. Lastly, change to the directory of the .py script and run 
 
 `python redditstream-cli.py -s soccer`
 
