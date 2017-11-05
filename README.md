@@ -4,7 +4,10 @@
 Redditstream-cli is a command line tool/interface for live streaming reddit comments from any subreddit. It updates automatically, pulling the latest comments and printing them into a nice columnar format for you to view. 
 
 It is written in Python, utilizing the PRAW Reddit API.
-You will want to sign up [here](https://www.reddit.com/prefs/apps/) and then have a file called credentials.json in the redditstream-cli/code directory. The credentials.json file should be formatted like this:
+
+1. You will want to sign up [here](https://www.reddit.com/prefs/apps/) 
+
+2. Create a file called credentials.json in the redditstream-cli/code directory. The credentials.json file should be formatted like this:
 
 ```json
 {
@@ -15,8 +18,7 @@ You will want to sign up [here](https://www.reddit.com/prefs/apps/) and then hav
  "username":"RedditUsername"
 }
 ```
-
-Change to the directory of the .py script, and run 
+3. Change to the directory of the .py script and run 
 
 `python redditstream-cli.py -s soccer`
 
