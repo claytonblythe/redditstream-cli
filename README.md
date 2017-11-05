@@ -15,6 +15,11 @@ You will want to sign up [here](https://www.reddit.com/prefs/apps/) and then hav
  "username":"RedditUsername"
 }
 ```
+
+Change to the directory of the .py script, and run 
+
+`python redditstream-cli -s soccer`
+
 Here is an example of three different redditstream-cli sessions running, serving the latest comments from r/politics, r/soccer, and r/technology. 
 
 ![Alt Test](https://github.com/claytonblythe/redditstream-cli/blob/master/figures/screenshot.png)
