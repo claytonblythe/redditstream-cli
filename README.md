@@ -18,7 +18,9 @@ You will want to sign up [here](https://www.reddit.com/prefs/apps/) and then hav
 
 Change to the directory of the .py script, and run 
 
-`python redditstream-cli -s soccer`
+`python redditstream-cli.py -s soccer`
+
+This will start a live comment streaming session from [reddit.com/r/soccer](http://reddit.com/r/soccer)
 
 Here is an example of three different redditstream-cli sessions running, serving the latest comments from r/politics, r/soccer, and r/technology. 
 
