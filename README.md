@@ -10,7 +10,7 @@ Here is an example of three different redditstream-cli sessions running, serving
 ![Alt Test](https://github.com/claytonblythe/redditstream-cli/blob/master/figures/screenshot.png)
 
 Here is a demo of how to run it, and what it looks like in action! 
-[![demo](https://asciinema.org/a/JZhJWeNvq1bTI8tG4VbaYPfJS.png)](https://asciinema.org/a/JZhJWeNvq1bTI8tG4VbaYPfJS?autoplay=1) <!-- .element height="50%" width="50%" -->
+[![demo](https://asciinema.org/a/JZhJWeNvq1bTI8tG4VbaYPfJS.png | height=50px)](https://asciinema.org/a/JZhJWeNvq1bTI8tG4VbaYPfJS?autoplay=1) 
 
 
 If you want to help out with this project or have suggestions/requests for features let me know!
