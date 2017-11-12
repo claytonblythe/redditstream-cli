@@ -6,9 +6,9 @@ import os
 import sqlite3
 
 """This is a script to live stream reddit comments from any subreddit, and store the results in a sqlite database.
-    Script can be run like "python redditstream-cli.py -s soccer" to initialize and start streaming/storing. The 
-    possibilities here are really interesting, you could do things like sentiment analysis or use the data for making 
-    a chat bot that talks in a certain subreddit's style. 
+    Script can be run like "python redditstream-cli.py -s soccer" to initialize and start streaming/storing. The
+    possibilities here are really interesting, you could do things like sentiment analysis or use the data for making
+    a chat bot that talks in a certain subreddit's style.
     Author: Clayton Blythe Email: claytondblythe@gmail.com """
 
 def get_args():
@@ -26,10 +26,11 @@ def get_args():
     # Assign args to variables
     a_subreddit = args.subreddit
     quiet_mode = args.quiet_boolean
-    # Return all variable values
+    # Return all arguments
     return a_subreddit, quiet_mode
 
 def authenticate():
+    """Authenticate to PRAW API with credentials stored in credentials.json, see github repo for details"""
     with open('credentials.json') as creds:
         credentials = json.load(creds)
 
@@ -42,9 +43,9 @@ def authenticate():
     return(reddit)
 
 def check_database_exists(subreddit):
-    # Create the database subreddit.db if it does not exist
-    # Here the UNIQUE constraint will maintain we don't insert duplicate
-    # comment_id's into the subreddit table in that database
+    """Create the database subreddit.db if it does not exist.
+    Here the UNIQUE constraint will maintain we don't insert duplicate
+    comment_id's into the subreddit table in that database"""
     if not os.path.exists('../data/{}.db'.format(subreddit)):
         conn = sqlite3.connect('../data/{}.db'.format(subreddit))
         c = conn.cursor()
@@ -54,15 +55,14 @@ def check_database_exists(subreddit):
         conn.commit()
         conn.close()
 
-
 def print_db_size(subreddit, cursor):
-    # Find how many rows are in the database before closing
     cursor.execute("SELECT COUNT (*) FROM {}".format(subreddit))
     rowcount = cursor.fetchone()[0]
     print('Number of comments in {} database: {}\n'.format(subreddit, rowcount))
 
-
 def stream_and_insert(subreddit, cursor):
+    """Continous stream of subreddit's comments, text wrapped to 60 characters for
+    columnar reading"""
     print("\nBeginning comment stream for r/{}\n".format(subreddit.display_name))
     print('-----------------------------------------------------------')
     while True:
@@ -96,7 +96,6 @@ def stream_and_insert_quiet(subreddit, cursor):
                               (user, time, body, comment_id, post_title, post_id, url))
         except KeyboardInterrupt:
             break
-
 
 def main():
     """Main script to get command line arguments, start streaming reddit comments, and store in sqlite database."""
