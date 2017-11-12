@@ -19,16 +19,18 @@ def get_args():
     # Add arguments
     parser.add_argument(
         '-s', '--subreddit', type=str, help='Subreddit name', default='soccer')
+    parser.add_argument(
+        '-q', '--quiet_boolean', type=str, help='quiet mode boolean', default=False)
     # Array for all arguments passed to script
     args = parser.parse_args()
     # Assign args to variables
     a_subreddit = args.subreddit
+    quiet_mode = args.quiet_boolean
     # Return all variable values
-    return a_subreddit
+    return a_subreddit, quiet_mode
 
 def authenticate():
     with open('credentials.json') as creds:
-
         credentials = json.load(creds)
 
     reddit = praw.Reddit(client_id=credentials['client_id'],
@@ -72,26 +74,43 @@ def stream_and_insert(subreddit, cursor):
                     user, time, body = comment.author.name, comment.created_utc, "\n".join(
                         textwrap.wrap(textwrap.dedent(comment.body).strip(), width=60))
                     comment_id, post_title, post_id, url = comment.id, comment.link_title, comment.link_id, comment.link_url
-                    #     if post_id == 't3_7b0eae':
                     print('u/' + user + ":\n" + body)
                     print('-----------------------------------------------------------')
                     cursor.execute("""INSERT OR REPLACE INTO {} VALUES (?,?,?,?,?,?,?);""".format(subreddit),
                               (user, time, body, comment_id, post_title, post_id, url))
         except KeyboardInterrupt:
-            print('\nBreaking loop and saving database')
+            print('\n\n***Breaking loop and saving database***')
+            break
+
+def stream_and_insert_quiet(subreddit, cursor):
+    while True:
+        try:
+            for comment in subreddit.stream.comments(pause_after=0):
+                if comment is None:
+                    pass
+                else:
+                    user, time, body = comment.author.name, comment.created_utc, "\n".join(
+                        textwrap.wrap(textwrap.dedent(comment.body).strip(), width=60))
+                    comment_id, post_title, post_id, url = comment.id, comment.link_title, comment.link_id, comment.link_url
+                    cursor.execute("""INSERT OR REPLACE INTO {} VALUES (?,?,?,?,?,?,?);""".format(subreddit),
+                              (user, time, body, comment_id, post_title, post_id, url))
+        except KeyboardInterrupt:
             break
 
 
 def main():
     """Main script to get command line arguments, start streaming reddit comments, and store in sqlite database."""
-    a_subreddit = get_args()
+    a_subreddit, quiet_mode = get_args()
     reddit = authenticate()
     subreddit = reddit.subreddit(a_subreddit)
     check_database_exists(subreddit)
     conn = sqlite3.connect('../data/{}.db'.format(subreddit))
     c = conn.cursor()
-    stream_and_insert(subreddit=subreddit, cursor=c)
-    print_db_size(subreddit=subreddit, cursor=c)
+    if not quiet_mode:
+        stream_and_insert(subreddit=subreddit, cursor=c)
+        print_db_size(subreddit=subreddit, cursor=c)
+    else:
+        stream_and_insert_quiet(subreddit=subreddit, cursor=c)
     conn.commit()
     conn.close()
 
